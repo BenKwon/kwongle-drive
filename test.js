@@ -1,5 +1,4 @@
 const argon2 = require('argon2');
-const fs = require('fs').promises;
 const path = require('path');
 // async function hash(){
 //     try {
@@ -55,11 +54,21 @@ const path = require('path');
 
 
 //remove file or directory 
-fs.rm('./drives/7/newDirectory',{force:true, recursive: true}).then(()=>{
-    console.log("delete completed")
-}).catch((err)=>{
-    console.log(err);
-})
+// fs.rm('./drives/7/newDirectory',{force:true, recursive: true}).then(()=>{
+//     console.log("delete completed")
+// }).catch((err)=>{
+//     console.log(err);
+// })
 
 const pathEncode = require('./pathEncode');
-console.log(pathEncode.pathEncode("한글"))
+console.log(pathEncode.pathEncode("한글/../../.."))
+
+
+console.log(isSubDirectory(__dirname,path.join(__dirname,'..')));
+
+function isSubDirectory(parent, child) {
+    console.log("parent",parent);
+    console.log("child",child)
+    const result = path.relative(child, parent);
+    return result.startsWith('..') || result === "";
+}
